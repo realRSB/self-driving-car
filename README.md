@@ -1,4 +1,4 @@
-I'm done part 1 of 2 of this simulation. Currently I've completed the car movement, collision and rays, and still need to implement the neural network.
+I'm done with part 1 of 2 of this simulation. Currently, I've completed the car movement, collision, and rays, but still need to implement the neural network.
 
 # Self-Driving Car Simulation 🚗💨
 
