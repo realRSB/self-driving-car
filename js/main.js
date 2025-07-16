@@ -1,36 +1,50 @@
-// make canvas like a road
-const canvas = document.getElementById("myCanvas");
-canvas.width = 200;
+// carCanvas
+const carCanvas = document.getElementById("carCanvas");
+carCanvas.width = 200;
+const carCtx = carCanvas.getContext("2d");
+
+// networkCanvas
+const networkCanvas = document.getElementById("networkCanvas");
+networkCanvas.width = 300;
+const networkCtx = networkCanvas.getContext("2d");
 
 
 // to draw on canvas
-const ctx = canvas.getContext("2d");
-const road = new Road(canvas.width/2, canvas.width*0.9);
-const car=new Car(road.getLaneCenter(1),100,30,50, "AI");
+const road = new Road(carCanvas.width/2, carCanvas.width*0.9);
+const car=new Car(road.getLaneCenter(1),100,30,50, "AI"); // can change AI to KEYS
 const traffic=[
     new Car(road.getLaneCenter(1),-100,30,50, "DUMMY", 2)
 ];
 
 animate()
 
-function animate() {
+function animate(time) {
     for(let i=0; i<traffic.length; i++){
         traffic[i].update(road.borders, []);
     }
     
     car.update(road.borders, traffic);
-    canvas.height = window.innerHeight;
+    
+    carCanvas.height = window.innerHeight;
+    networkCanvas.height = window.innerHeight;
 
-    ctx.save();
-    ctx.translate(0, -car.y+canvas.height*0.7);
+    carCtx.save();
+    carCtx.translate(0, -car.y+carCanvas.height*0.7);
 
-    road.draw(ctx);
+    road.draw(carCtx);
     for(let i=0; i<traffic.length; i++) {
-        traffic[i].draw(ctx, "red");
+        traffic[i].draw(carCtx, "red");
     }
-    car.draw(ctx, "blue");
+    car.draw(carCtx, "blue");
 
     //requestAnimationFrame calls animate method many times per second giving illusion of movement
-    ctx.restore()
+    carCtx.restore()
+
+    // visualize lines
+    networkCtx.lineDashOffset=-time/50
+
+    // visualizing the neural network
+
+    Visualizer.drawNetwork(networkCtx,car.brain);
     requestAnimationFrame(animate);
 }
