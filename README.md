@@ -1,5 +1,3 @@
-I'm done with part 1 of 2 of this simulation. Currently, I've completed the car movement, collision, and rays, but still need to implement the neural network.
-
 # Self-Driving Car Simulation 🚗💨
 
 This is a JavaScript-based self-driving car simulation built from scratch — no libraries, no frameworks. It uses basic physics, pathfinding, and sensor logic to simulate AI-controlled vehicles navigating a road with traffic.

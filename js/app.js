@@ -3,5 +3,6 @@ const splash = document.querySelector('.splash');
 document.addEventListener("DOMContentLoaded", (e)=>{
     setTimeout(()=>{
         splash.classList.add('display-none');
-    }, 2500);
+    }, 500);
+    // adjust this number for inital splash
 })
