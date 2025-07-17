@@ -127,7 +127,7 @@ class Car{
     }
 
     // x is the center of the car
-    draw (ctx, color) {
+    draw (ctx, color, drawSensor=false) {
         if (this.damaged){
             ctx.fillStyle='gray';
         } else {
@@ -141,8 +141,8 @@ class Car{
         }
         ctx.fill();
 
-        if(this.sensor){
-            this.sensor.draw(ctx)
+        if(this.sensor && drawSensor){
+            this.sensor.draw(ctx);
         }
     }
 }

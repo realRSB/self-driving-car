@@ -8,6 +8,12 @@
 </head>
 <body>
     <canvas id="carCanvas"></canvas>
+    <div id="verticalButtons">
+        <button onclick="save()">📋</button>
+        <button onclick="discard()">❌</button>
+        <button id="pause" onclick="pause()">⏸️</button>
+        <button onclick="reload()">🔄️</button>
+    </div>
     <canvas id="networkCanvas"></canvas>
     <script src="js/visualizer.js"></script>
     <script src="js/network.js"></script>
