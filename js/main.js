@@ -5,6 +5,7 @@ function pause() {
     if (!paused) requestAnimationFrame(animate);
 }
 
+
 // carCanvas
 const carCanvas = document.getElementById("carCanvas");
 carCanvas.width = 200;
