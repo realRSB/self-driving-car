@@ -21,9 +21,32 @@ const networkCtx = networkCanvas.getContext("2d");
 const road = new Road(carCanvas.width/2, carCanvas.width*0.9);
 // const car=new Car(road.getLaneCenter(1),100,30,50, "AI"); can change AI to KEYS
 
-const N = 1000; // change for nuumber of cars
-const cars=generateCars(N);
-let bestCar=cars[0];
+
+let N = 1000; // initial number of cars
+let cars = generateCars(N);
+let bestCar = cars[0];
+let traffic = generateTraffic();
+
+let slider = document.getElementById("myRange");
+let output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function changeCar() {
+  output.innerHTML = this.value;
+  N = parseInt(this.value);
+  cars = generateCars(N);
+  if(localStorage.getItem("bestBrain")){
+    for(let i=0; i<cars.length; i++) {
+      cars[i].brain=JSON.parse(localStorage.getItem("bestBrain"));
+      if(i!=0){
+        NeuralNetwork.mutate(cars[i].brain,0.2)
+      }
+    }
+  }
+  bestCar = cars[0];
+  traffic = generateTraffic();
+}
 
 // if best brain exists update car to have it's brain
 if(localStorage.getItem("bestBrain")){
@@ -37,17 +60,19 @@ if(localStorage.getItem("bestBrain")){
 };
 
 
-const traffic=[
-    new Car(road.getLaneCenter(1),-100,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(0),-300,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2),-300,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(1),-500,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2),-500,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2),-700,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(0),-700,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2),-100,30,50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2),-100,30,50, "DUMMY", 2)
-];
+function generateTraffic() {
+    return [
+        new Car(road.getLaneCenter(1),-100,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(0),-300,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(2),-300,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(1),-500,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(2),-500,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(2),-700,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(0),-700,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(2),-100,30,50, "DUMMY", 2),
+        new Car(road.getLaneCenter(2),-100,30,50, "DUMMY", 2)
+    ];
+}
 
 animate();
 
